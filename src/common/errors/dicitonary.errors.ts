@@ -7,7 +7,7 @@ export class DictionaryApiError extends Error {
 
 export class WordNotFoundError extends DictionaryApiError {
   constructor(word: string) {
-    super(`Can not found definition for word: ${word}`, 404);
+    super(`Could not find definition for word: ${word}`, 404);
     this.name = 'WordNotFoundError';
   }
 }
