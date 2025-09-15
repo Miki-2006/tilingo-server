@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateNewUserDto } from './dto/create-user.dto';
+import { CheckingPasswordOfUserDto } from './dto/sign-in.dto';
 
 @Controller('users')
 export class UsersController {
@@ -11,9 +12,9 @@ export class UsersController {
     return this.usersService.signUpNewUser(createNewUserDto);
   }
 
-  @Get('/user/find/:nickName')
-  findOne(@Param('nickName') nickNameOfSearchingUser: string) {
-    return this.usersService.findUserByNickName(nickNameOfSearchingUser);
+  @Get('/user/sign-in')
+  findOne(@Body() checkingPasswordOfUserDto: CheckingPasswordOfUserDto) {
+    return this.usersService.signInByNickName(checkingPasswordOfUserDto);
   }
 
   // @Patch(':id')
