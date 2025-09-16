@@ -17,6 +17,11 @@ export class UsersController {
     return this.usersService.signInByNickName(checkingPasswordOfUserDto);
   }
 
+  @Get('/user/:nickName')
+  findUserByNickName(@Param('nickName') nickName: string) {    
+    return this.usersService.getUserByNickName(nickName);
+  }
+
   // @Patch(':id')
   // update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
   //   return this.usersService.update(+id, updateUserDto);

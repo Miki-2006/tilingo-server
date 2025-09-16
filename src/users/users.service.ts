@@ -3,6 +3,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateNewUserDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcrypt'
 import { CheckingPasswordOfUserDto } from './dto/sign-in.dto';
+import { userResponseDto } from './dto/response-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -44,6 +45,23 @@ export class UsersService {
     }
   }
 
+  async getUserByNickName (nickName: string) {
+    const user = await this.prisma.users.findUnique({
+      where: {
+        nickName: nickName
+      }
+    });
+    if (user) {
+      console.log('User was found:', nickName);
+      const userResponse = new userResponseDto();
+      userResponse.id = user.id;
+      userResponse.nickName = user.nickName;
+      userResponse.email = user.email;
+      return userResponse;
+    } else {
+      console.log('Can not find user with nickName:', nickName);
+    }
+  }
 
   // findAll() {
   //   return `This action returns all users`;

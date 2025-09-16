@@ -1,16 +1,12 @@
-import { Exclude, Expose } from "class-transformer";
-import { UUID } from "crypto";
+import { Expose } from "class-transformer";
 
 export class userResponseDto{
     @Expose()
-    id: UUID;
+    id: string;
 
     @Expose()
     nickName: string;
 
     @Expose()
     email: string
-
-    @Exclude()
-    password: string
 }

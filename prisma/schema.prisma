@@ -23,7 +23,7 @@ model modules {
 model users {
   id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   created_at DateTime  @default(now()) @db.Timestamptz(6)
-  nickName   String
+  nickName   String    @unique
   password   String    @db.VarChar
   email      String    @db.VarChar
   modules    modules[]
