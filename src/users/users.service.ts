@@ -4,6 +4,7 @@ import { CreateNewUserDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcrypt'
 import { CheckingPasswordOfUserDto } from './dto/sign-in.dto';
 import { userResponseDto } from './dto/response-user.dto';
+import { PasswordNotCorrectError, UserNotFoundError, DatabaseUsersError } from 'src/common/errors/users.errors';
 
 @Injectable()
 export class UsersService {
@@ -21,45 +22,82 @@ export class UsersService {
     })
   }
 
-  async signInByNickName(checkingPasswordOfUserDto: CheckingPasswordOfUserDto) {
+  // async signInByNickName(checkingPasswordOfUserDto: CheckingPasswordOfUserDto): Promise<any> {
+  //   const user = await this.prisma.users.findFirst({
+  //     where: {
+  //       nickName: checkingPasswordOfUserDto.nickName,
+  //     },
+  //   });
+  //   if (!user) {
+  //     throw new UserNotFoundError(checkingPasswordOfUserDto.nickName);
+
+  //   }
+  //   await bcrypt.compare(checkingPasswordOfUserDto.password, user.password, (err, result) => {
+  //     if (err) {
+  //       console.error('Error comparing password:', err);
+  //       //send message to client
+  //       return;
+  //     }
+  //     if (result) {
+  //       console.log('Password match! User authenticated.');
+  //       return result;
+  //     } else {
+  //       throw new PasswordNotCorrectError(checkingPasswordOfUserDto.nickName);
+  //     }
+  //   });
+  // }
+
+  async signInByNickName(checkingPasswordOfUserDto: CheckingPasswordOfUserDto): Promise<any> {
+  try {
     const user = await this.prisma.users.findFirst({
       where: {
         nickName: checkingPasswordOfUserDto.nickName,
       },
     });
-    if (user) {
-      await bcrypt.compare(checkingPasswordOfUserDto.password, user.password, (err, result) => {
-        if (err) {
-          console.error('Error comparing password:', err);
-          //send message to client
-          return;
-        }
-        if (result) {
-          console.log('Password match! User authenticated.');
-        } else {
-          console.log('Password do not match!', result);
-        }
-      });
-    } else {
-      throw new Error("Can not find user!");
+    
+    if (!user) {
+      throw new UserNotFoundError(checkingPasswordOfUserDto.nickName);
     }
-  }
 
-  async getUserByNickName (nickName: string) {
+    // Use await with the promise-based version of bcrypt.compare
+    const isPasswordValid = await bcrypt.compare(
+      checkingPasswordOfUserDto.password, 
+      user.password
+    );
+    
+    if (!isPasswordValid) {
+      throw new PasswordNotCorrectError(checkingPasswordOfUserDto.nickName);
+    }
+
+    console.log('Password match! User authenticated.');
+    
+    const { password, ...userWithoutPassword } = user;
+    return userWithoutPassword;
+    
+  } catch (error) {
+    if (error instanceof DatabaseUsersError) {
+      throw error;
+    }
+    
+    console.error('Error during sign in:', error);
+    throw new Error('Authentication failed due to server error');
+  }
+}
+
+  async getUserByNickName(nickName: string) {
     const user = await this.prisma.users.findUnique({
       where: {
         nickName: nickName
       }
     });
     if (user) {
-      console.log('User was found:', nickName);
       const userResponse = new userResponseDto();
       userResponse.id = user.id;
       userResponse.nickName = user.nickName;
       userResponse.email = user.email;
       return userResponse;
     } else {
-      console.log('Can not find user with nickName:', nickName);
+      throw new UserNotFoundError(nickName);
     }
   }
 

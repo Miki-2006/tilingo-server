@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseFilters, HttpCode, HttpStatus } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateNewUserDto } from './dto/create-user.dto';
 import { CheckingPasswordOfUserDto } from './dto/sign-in.dto';
+import { DatabaseUsersExceptionFilter } from 'src/filters/users-exception.filter';
 
-@Controller('users')
+@Controller('auth')
+@UseFilters(DatabaseUsersExceptionFilter)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
@@ -12,7 +14,8 @@ export class UsersController {
     return this.usersService.signUpNewUser(createNewUserDto);
   }
 
-  @Get('/user/sign-in')
+  @Post('/user/sign-in')
+  @HttpCode(HttpStatus.OK)
   findOne(@Body() checkingPasswordOfUserDto: CheckingPasswordOfUserDto) {
     return this.usersService.signInByNickName(checkingPasswordOfUserDto);
   }
