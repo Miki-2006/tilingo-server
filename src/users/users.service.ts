@@ -22,31 +22,6 @@ export class UsersService {
     })
   }
 
-  // async signInByNickName(checkingPasswordOfUserDto: CheckingPasswordOfUserDto): Promise<any> {
-  //   const user = await this.prisma.users.findFirst({
-  //     where: {
-  //       nickName: checkingPasswordOfUserDto.nickName,
-  //     },
-  //   });
-  //   if (!user) {
-  //     throw new UserNotFoundError(checkingPasswordOfUserDto.nickName);
-
-  //   }
-  //   await bcrypt.compare(checkingPasswordOfUserDto.password, user.password, (err, result) => {
-  //     if (err) {
-  //       console.error('Error comparing password:', err);
-  //       //send message to client
-  //       return;
-  //     }
-  //     if (result) {
-  //       console.log('Password match! User authenticated.');
-  //       return result;
-  //     } else {
-  //       throw new PasswordNotCorrectError(checkingPasswordOfUserDto.nickName);
-  //     }
-  //   });
-  // }
-
   async signInByNickName(checkingPasswordOfUserDto: CheckingPasswordOfUserDto): Promise<any> {
   try {
     const user = await this.prisma.users.findFirst({

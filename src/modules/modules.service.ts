@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { UUID } from 'crypto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { modulesResponseDto } from './dto/get-modules.dto';
 
 @Injectable()
 export class ModulesService {
@@ -8,15 +9,20 @@ export class ModulesService {
     private readonly prisma: PrismaService
   ){}
 
-  async getModulesOfUser(userId: UUID) {
-    return this.prisma.modules.findMany({
+  async getOnlyModulesOfUser(userId: UUID) {
+    const modulesOfUser = await this.prisma.modules.findMany({
       where: {
         user_id: userId
       },
-      include: {
-        words: true, // подтянуть связанные слова, если нужно
-      },
-    })
+    });
+    if (modulesOfUser) {
+      // const response = new modulesResponseDto();
+      // response.name = modulesOfUser.name;
+      // response.userId = modulesOfUser.user_id
+      return modulesOfUser;
+    } else {
+      console.log(`User with id: ${userId} does not have modules`);
+    }
   }
 
   // findOne(id: number) {

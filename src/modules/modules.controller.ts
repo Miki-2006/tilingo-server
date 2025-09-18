@@ -4,13 +4,13 @@ import { UUID } from 'crypto';
 
 @Controller('modules')
 export class ModulesController {
-  constructor(private readonly modulesService: ModulesService) {}
+  constructor(private readonly modulesService: ModulesService) { }
 
   @Get('/:userId')
-  fetchModulesOfUser(
+  fetchOnlyModulesByUserId(
     @Param('userId') user_id: UUID
   ) {
-    return this.modulesService.getModulesOfUser(user_id);
+    return this.modulesService.getOnlyModulesOfUser(user_id);
   }
 
   // @Post()
