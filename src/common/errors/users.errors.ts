@@ -1,27 +1,29 @@
+import { HttpException, HttpStatus } from "@nestjs/common";
+
 export class DatabaseUsersError extends Error {
     constructor(message: string, public readonly statusCode: number) {
         super(message);
-        this.name = 'DatabaseUsersError';
+        this.name = this.constructor.name;
     }
 }
 
-export class UserNotFoundError extends DatabaseUsersError {
+export class UserNotFoundError extends HttpException {
     constructor(nickName: string) {
-        super(`Could not find user with nickName: ${nickName}`, 404);
-        this.name = 'UserNotFoundError';
+        super(`Could not find user with nickName: ${nickName}`, HttpStatus.NOT_FOUND);
+        this.name = this.constructor.name;
     }
 }
 
-export class PasswordNotCorrectError extends DatabaseUsersError {
+export class PasswordNotCorrectError extends HttpException {
     constructor(nickName: string) {
-        super(`Password is not correct for user with nickName: ${nickName}`, 401),
-        this.name = 'PasswordNotCorrectError';
+        super(`Password is not correct for user with nickName: ${nickName}`, HttpStatus.UNAUTHORIZED),
+            this.name = this.constructor.name;
     }
 }
 
-export class UserAlreadyExistsError extends DatabaseUsersError {
+export class UserAlreadyExistsError extends HttpException {
     constructor(nickName: string) {
-        super(`User with nickName ${nickName} already exists`, 409),
-        this.name = 'UserAlreadyExistsError'
+        super(`User with nickName ${nickName} already exists`, HttpStatus.CONFLICT),
+            this.name = this.constructor.name;
     }
 }

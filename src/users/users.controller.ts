@@ -1,8 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseFilters, HttpCode, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseFilters, HttpCode, HttpStatus, UsePipes, ValidationPipe } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateNewUserDto } from './dto/create-user.dto';
-import { CheckingPasswordOfUserDto } from './dto/sign-in.dto';
-import { DatabaseUsersExceptionFilter } from 'src/filters/users-exception.filter';
+import { CheckingPasswordOfUserDto } from './dto/login.dto';
+import { DatabaseUsersExceptionFilter } from 'src/common/filters/users-exception.filter';
 
 @Controller('auth')
 @UseFilters(DatabaseUsersExceptionFilter)
@@ -10,6 +10,8 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post('/new-user/sign-up')
+  @HttpCode(201)
+  @UsePipes(new ValidationPipe())
   create(@Body() createNewUserDto: CreateNewUserDto) {
     return this.usersService.signUpNewUser(createNewUserDto);
   }

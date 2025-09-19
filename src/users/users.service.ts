@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateNewUserDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcrypt'
-import { CheckingPasswordOfUserDto } from './dto/sign-in.dto';
+import { CheckingPasswordOfUserDto } from './dto/login.dto';
 import { userResponseDto } from './dto/response-user.dto';
-import { PasswordNotCorrectError, UserNotFoundError, DatabaseUsersError } from 'src/common/errors/users.errors';
+import { PasswordNotCorrectError, UserNotFoundError, DatabaseUsersError, UserAlreadyExistsError } from 'src/common/errors/users.errors';
 
 @Injectable()
 export class UsersService {
@@ -13,6 +13,14 @@ export class UsersService {
   ) { }
 
   async signUpNewUser(createNewUserDto: CreateNewUserDto) {
+    const existingUser = await this.prisma.users.findUnique({
+      where: {
+        nickName: createNewUserDto.nickName
+      }
+    });
+    if (existingUser) {
+      throw new UserAlreadyExistsError(createNewUserDto.nickName);
+    }
     return this.prisma.users.create({
       data: {
         nickName: createNewUserDto.nickName,
@@ -23,41 +31,29 @@ export class UsersService {
   }
 
   async signInByNickName(checkingPasswordOfUserDto: CheckingPasswordOfUserDto): Promise<any> {
-  try {
-    const user = await this.prisma.users.findFirst({
+    const user = await this.prisma.users.findUnique({
       where: {
         nickName: checkingPasswordOfUserDto.nickName,
       },
     });
-    
+
     if (!user) {
       throw new UserNotFoundError(checkingPasswordOfUserDto.nickName);
     }
 
     // Use await with the promise-based version of bcrypt.compare
     const isPasswordValid = await bcrypt.compare(
-      checkingPasswordOfUserDto.password, 
+      checkingPasswordOfUserDto.password,
       user.password
     );
-    
+
     if (!isPasswordValid) {
       throw new PasswordNotCorrectError(checkingPasswordOfUserDto.nickName);
     }
 
-    console.log('Password match! User authenticated.');
-    
     const { password, ...userWithoutPassword } = user;
     return userWithoutPassword;
-    
-  } catch (error) {
-    if (error instanceof DatabaseUsersError) {
-      throw error;
-    }
-    
-    console.error('Error during sign in:', error);
-    throw new Error('Authentication failed due to server error');
   }
-}
 
   async getUserByNickName(nickName: string) {
     const user = await this.prisma.users.findUnique({
