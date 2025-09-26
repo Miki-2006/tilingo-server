@@ -1,5 +1,5 @@
 import { ArgumentsHost, Catch, ExceptionFilter } from "@nestjs/common";
-import { DictionaryApiError } from "../errors/dicitonary.errors";
+import { DictionaryApiError } from "../errors/dictionary.errors";
 import { Response } from "express";
 
 @Catch(DictionaryApiError)
