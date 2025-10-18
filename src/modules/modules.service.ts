@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { UUID } from 'crypto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { modulesResponseDto } from './dto/get-modules.dto';
 import { CreateModuleDto } from './dto/create-module.dto';
 import { response } from 'express';
-import { ModulesNotFoundError, UserNotFoundError } from 'src/common/errors/modules.errors';
+import { ModulesNotFoundError, UserNotFoundError } from '../common/errors/modules.errors';
 import { Prisma } from '@prisma/client';
 
 @Injectable()

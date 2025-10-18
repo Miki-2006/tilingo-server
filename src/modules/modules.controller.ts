@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseFilters } from '@
 import { ModulesService } from './modules.service';
 import { UUID } from 'crypto';
 import { CreateModuleDto } from './dto/create-module.dto';
-import { ModulesApiExceptionFilter } from 'src/common/filters/modules-exception.filter';
+import { ModulesApiExceptionFilter } from '../common/filters/modules-exception.filter';
 
 @Controller('modules')
 @UseFilters(ModulesApiExceptionFilter)

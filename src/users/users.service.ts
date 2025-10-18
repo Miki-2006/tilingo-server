@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { CreateNewUserDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcrypt'
 import { CheckingPasswordOfUserDto } from './dto/login.dto';
 import { userResponseDto } from './dto/response-user.dto';
-import { PasswordNotCorrectError, UserNotFoundError, UserAlreadyExistsError } from 'src/common/errors/users.errors';
+import { PasswordNotCorrectError, UserNotFoundError, UserAlreadyExistsError } from '../common/errors/users.errors';
 
 @Injectable()
 export class UsersService {

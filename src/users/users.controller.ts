@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseFilters, HttpCode
 import { UsersService } from './users.service';
 import { CreateNewUserDto } from './dto/create-user.dto';
 import { CheckingPasswordOfUserDto } from './dto/login.dto';
-import { DatabaseUsersExceptionFilter } from 'src/common/filters/users-exception.filter';
+import { DatabaseUsersExceptionFilter } from '../common/filters/users-exception.filter';
 
 @Controller('auth')
 @UseFilters(DatabaseUsersExceptionFilter)
