@@ -4,7 +4,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { modulesResponseDto } from './dto/get-modules.dto';
 import { CreateModuleDto } from './dto/create-module.dto';
 import { response } from 'express';
-import { ModulesNotFoundError, UserNotFoundError } from 'src/common/errors/modules.errors.ts';
+import { ModulesNotFoundError, UserNotFoundError } from 'src/common/errors/modules.errors';
 import { Prisma } from '@prisma/client';
 
 @Injectable()
