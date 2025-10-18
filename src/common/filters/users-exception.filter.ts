@@ -1,6 +1,6 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpStatus } from "@nestjs/common";
 import { Response } from "express";
-import { DatabaseUsersError, PasswordNotCorrectError, UserAlreadyExistsError, UserNotFoundError } from "src/common/errors/users.errors";
+import { DatabaseUsersError, PasswordNotCorrectError, UserAlreadyExistsError, UserNotFoundError } from "src/common/errors/users.errors.ts";
 
 @Catch(DatabaseUsersError)
 export class DatabaseUsersExceptionFilter implements ExceptionFilter {

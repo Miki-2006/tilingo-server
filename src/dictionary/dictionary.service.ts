@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
-import { InvalidApiKeyError, WordNotFoundError } from 'src/common/errors/dictionary.errors';
+import { InvalidApiKeyError, WordNotFoundError } from 'src/common/errors/dictionary.errors.ts';
 
 
 @Injectable()
