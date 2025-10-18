@@ -1,9 +1,12 @@
-import { IsString } from "class-validator";
+import { Type } from "class-transformer";
+import { IsArray, ValidateNested } from "class-validator";
+import { moduleDTO } from "./module.dto";
 
 export class modulesResponseDto {
-    @IsString()
-    name: string;
+    @IsArray()
+    @ValidateNested({each: true})
+    @Type(() => moduleDTO)
+    modules: moduleDTO[];
 
-    @IsString()
-    userId: string;
+    status: number;
 }

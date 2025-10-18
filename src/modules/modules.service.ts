@@ -2,12 +2,16 @@ import { Injectable } from '@nestjs/common';
 import { UUID } from 'crypto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { modulesResponseDto } from './dto/get-modules.dto';
+import { CreateModuleDto } from './dto/create-module.dto';
+import { response } from 'express';
+import { ModulesNotFoundError, UserNotFoundError } from 'src/common/errors/modules.errors';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class ModulesService {
   constructor(
     private readonly prisma: PrismaService
-  ){}
+  ) { }
 
   async getOnlyModulesOfUser(userId: UUID) {
     const modulesOfUser = await this.prisma.modules.findMany({
@@ -15,25 +19,48 @@ export class ModulesService {
         user_id: userId
       },
     });
-    if (modulesOfUser) {
-      // const response = new modulesResponseDto();
-      // response.name = modulesOfUser.name;
-      // response.userId = modulesOfUser.user_id
-      return modulesOfUser;
+
+    if (modulesOfUser.length > 0) {
+      const response = new modulesResponseDto();
+      response.modules = modulesOfUser;
+      response.status = 200;
+      return response;
     } else {
-      console.log(`User with id: ${userId} does not have modules`);
+      throw new ModulesNotFoundError(userId);
     }
   }
 
-  // findOne(id: number) {
-  //   return `This action returns a #${id} module`;
-  // }
+  async createNewModuleForUser(createModuleDto: CreateModuleDto) {
+    try {
+      const newModule = await this.prisma.modules.create({
+        data: {
+          name: createModuleDto.name,
+          user_id: createModuleDto.userId,
+        }
+      })
 
-  // update(id: number, updateModuleDto: UpdateModuleDto) {
-  //   return `This action updates a #${id} module`;
-  // }
+      if (newModule) {
+        return newModule;
+      }
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2003'
+      ) {
+        throw new UserNotFoundError(createModuleDto.userId);
+      }
+    }
 
-  // remove(id: number) {
-  //   return `This action removes a #${id} module`;
-  // }
+    // findOne(id: number) {
+    //   return `This action returns a #${id} module`;
+    // }
+
+    // update(id: number, updateModuleDto: UpdateModuleDto) {
+    //   return `This action updates a #${id} module`;
+    // }
+
+    // remove(id: number) {
+    //   return `This action removes a #${id} module`;
+    // }
+  }
 }

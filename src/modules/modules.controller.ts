@@ -1,8 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseFilters } from '@nestjs/common';
 import { ModulesService } from './modules.service';
 import { UUID } from 'crypto';
+import { CreateModuleDto } from './dto/create-module.dto';
+import { ModulesApiExceptionFilter } from 'src/common/filters/modules-exception.filter';
 
 @Controller('modules')
+@UseFilters(ModulesApiExceptionFilter)
 export class ModulesController {
   constructor(private readonly modulesService: ModulesService) { }
 
@@ -13,10 +16,10 @@ export class ModulesController {
     return this.modulesService.getOnlyModulesOfUser(user_id);
   }
 
-  // @Post()
-  // create(@Body() createModuleDto: CreateModuleDto) {
-  //   return this.modulesService.create(createModuleDto);
-  // }
+  @Post('/new')
+  createNewModule(@Body() createModuleDto: CreateModuleDto) {
+    return this.modulesService.createNewModuleForUser(createModuleDto);
+  }
 
   // @Get(':id')
   // findOne(@Param('id') id: string) {

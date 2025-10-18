@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { RandomWordService } from './random-word.service';
 
 @Controller('random-word')
@@ -7,9 +7,8 @@ export class RandomWordController {
 
   @Get('/:word')
   async getDefinitionOfRandomWord(
-    @Param('word') word: string,
-    @Query('lang') language?: string,
+    @Param('word') word: string
   ){
-    return this.randomWordService.getDefinition(word, language)
+    return this.randomWordService.getDefinition(word)
   }
 }

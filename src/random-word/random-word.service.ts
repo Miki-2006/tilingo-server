@@ -11,9 +11,9 @@ export class RandomWordService {
 
 
 
-  async getDefinition(word: string, language: string = 'en') {
-    const url = `https://api.dictionaryapi.dev/api/v2/entries/${language}/${word}`
-
+  async getDefinition(word: string) {
+    const url = `https://dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${process.env.MERRIAM_DICTIONARY_API_KEY}`
+    
     try {      
       const response = await firstValueFrom(
         this.httpService.get(url)
