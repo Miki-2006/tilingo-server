@@ -11,31 +11,65 @@ datasource db {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model modules {
-  created_at DateTime @default(now()) @db.Timestamptz(6)
-  name       String   @db.VarChar
-  user_id    String   @db.Uuid
-  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  users      users    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  words      words[]
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  name      String   @db.VarChar
+  userId    String   @db.Uuid
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  users     users    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  words     words[]
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model users {
-  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  created_at DateTime  @default(now()) @db.Timestamptz(6)
-  nickName   String    @unique
-  password   String    @db.VarChar
-  email      String    @db.VarChar
-  modules    modules[]
+  id            String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt     DateTime        @default(now()) @db.Timestamptz(6)
+  nickName      String          @unique
+  email         String          @unique @db.VarChar
+  supabaseId    String          @unique @db.VarChar
+  booksProgress booksProgress[]
+  modules       modules[]
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model words {
   id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  created_at DateTime @default(now()) @db.Timestamptz(6)
+  createdAt  DateTime @default(now()) @db.Timestamptz(6)
   word       String   @db.VarChar
   definition String
-  module_id  String   @db.Uuid
+  moduleId   String   @db.Uuid
   image      String
-  modules    modules  @relation(fields: [module_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  modules    modules  @relation(fields: [moduleId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model books {
+  id            String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt     DateTime        @default(now()) @db.Timestamptz(6)
+  title         String          @unique
+  author        String
+  pages         BigInt
+  fileUrl       String
+  imageUrl      String
+  booksProgress booksProgress[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model booksProgress {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  updatedAt   DateTime @db.Date
+  userId      String   @db.Uuid
+  bookId      String   @db.Uuid
+  currentPage BigInt?
+  books       books    @relation(fields: [bookId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users       users    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model movies {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  title      String
+  speaker    String
+  cover      String
+  sourceUrl  String
 }

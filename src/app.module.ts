@@ -10,9 +10,11 @@ import { UsersModule } from './users/users.module';
 import { WordsModule } from './words/words.module';
 import { BooksModule } from './books/books.module';
 import { ImageGenerationModule } from './image-generation/image-generation.module';
+import { Neo4jModule } from './neo4j/neo4j.module';
+import { MoviesModule } from './movies/movies.module';
 
 @Module({
-  imports: [PrismaModule, RandomWordModule, ConfigModule.forRoot({isGlobal: true}), DictionaryModule, ModulesModule, UsersModule, WordsModule, BooksModule, ImageGenerationModule],
+  imports: [PrismaModule, RandomWordModule, ConfigModule.forRoot({isGlobal: true}), DictionaryModule, ModulesModule, UsersModule, WordsModule, BooksModule, ImageGenerationModule, Neo4jModule.forRoot(), MoviesModule],
   controllers: [AppController],
   providers: [AppService],
 })

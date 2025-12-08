@@ -24,6 +24,7 @@ export class DictionaryService {
       throw new WordNotFoundError(word);
     }
     return response.data
+    
   }
 
   // findOne(id: number) {

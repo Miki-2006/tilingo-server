@@ -16,7 +16,7 @@ export class ModulesService {
   async getOnlyModulesOfUser(userId: UUID) {
     const modulesOfUser = await this.prisma.modules.findMany({
       where: {
-        user_id: userId
+        userId: userId
       },
     });
 
@@ -35,7 +35,7 @@ export class ModulesService {
       const newModule = await this.prisma.modules.create({
         data: {
           name: createModuleDto.name,
-          user_id: createModuleDto.userId,
+          userId: createModuleDto.userId,
         }
       })
 

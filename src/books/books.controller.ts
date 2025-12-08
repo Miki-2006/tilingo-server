@@ -12,14 +12,14 @@ export class BooksController {
     return this.booksService.create(createBookDto);
   }
 
-  @Get()
-  findAll() {
-    return this.booksService.findAll();
+  @Get('/all')
+  async fetchAll() {
+    return this.booksService.getAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.booksService.findOne(+id);
+  @Get('/:id')
+  fetchOne(@Param('id') id: string) {
+    return this.booksService.getOneById(id);
   }
 
   @Patch(':id')

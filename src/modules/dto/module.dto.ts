@@ -5,7 +5,7 @@ export class moduleDTO {
     name: string;
 
     @IsString()
-    user_id: string;
+    userId: string;
 
     @IsString()
     id: string
