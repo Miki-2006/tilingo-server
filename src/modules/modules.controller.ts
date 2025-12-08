@@ -11,9 +11,9 @@ export class ModulesController {
 
   @Get('/:userId')
   fetchOnlyModulesByUserId(
-    @Param('userId') user_id: UUID
+    @Param('userId') userId: UUID
   ) {
-    return this.modulesService.getOnlyModulesOfUser(user_id);
+    return this.modulesService.getOnlyModulesOfUser(userId);
   }
 
   @Post('/new')

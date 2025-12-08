@@ -6,11 +6,17 @@ export class DictionaryController {
   constructor(private readonly dictionaryService: DictionaryService) { }
 
   @Get('/definition/:word')
-  findDefinition(
+  async findDefinition(
     @Param('word') word: string
 
   ) {
-    return this.dictionaryService.findDefinitionOfWord(word);
+    const data = await this.dictionaryService.findDefinitionOfWord(word);
+    const response = {
+      word: data[0].hwi.hw.replace(/[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g, ''),
+      definition: data[0].shortdef[0],
+      sound: data[0].hwi.prs[0].sound
+    }
+    return response;
   }
 
   // @Post()
