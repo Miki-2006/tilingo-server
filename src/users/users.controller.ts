@@ -3,7 +3,7 @@ import { UsersService } from './users.service';
 import { CreateNewUserDto } from './dto/create-user.dto';
 import { CheckingPasswordOfUserDto } from './dto/login.dto';
 import { DatabaseUsersExceptionFilter } from '../common/filters/users-exception.filter';
-import { SupabaseAuthGuard } from 'src/common/guards/auth.guard';
+import { SupabaseAuthGuard } from 'src/common/guards/auth';
 
 @Controller('auth')
 @UseFilters(DatabaseUsersExceptionFilter)
