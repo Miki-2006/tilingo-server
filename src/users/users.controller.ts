@@ -3,14 +3,12 @@ import { UsersService } from './users.service';
 import { CreateNewUserDto } from './dto/create-user.dto';
 import { CheckingPasswordOfUserDto } from './dto/login.dto';
 import { DatabaseUsersExceptionFilter } from '../common/filters/users-exception.filter';
-import { SupabaseAuthGuard } from 'src/common/guards/auth.guard';
 
 @Controller('auth')
 @UseFilters(DatabaseUsersExceptionFilter)
 export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
-  @UseGuards(SupabaseAuthGuard)
   @Post('/verify')
   async verifyToken(@Req() req) {
     const { email, sub } = req.user;
