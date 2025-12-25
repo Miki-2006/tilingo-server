@@ -1,11 +1,11 @@
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+  <a href="https://method15.vercel.app/" target="blank"><img src="./public//tilingo.png" width="120" alt="Nest Logo" /></a>
 </p>
 
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+  <p align="center">A NestJS server-side of <a href="https://method15.vercel.app/" target="_blank">Tilingo</a> for learning languages.</p>
     <p align="center">
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
@@ -21,9 +21,10 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Project documentations
+
+[Postman documentation ->](https://documenter.getpostman.com/view/34477062/2sBXVZouWc)
 
 ## Project setup
 
@@ -35,13 +36,13 @@ $ npm install
 
 ```bash
 # development
-$ npm run start
+$ nest start
 
 # watch mode
-$ npm run start:dev
+$ nest start --watch
 
 # production mode
-$ npm run start:prod
+$ node dist/main
 ```
 
 ## Run tests

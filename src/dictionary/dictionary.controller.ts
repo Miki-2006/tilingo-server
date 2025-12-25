@@ -5,7 +5,7 @@ import { DictionaryService } from './dictionary.service';
 export class DictionaryController {
   constructor(private readonly dictionaryService: DictionaryService) { }
 
-  @Get('/definition/:word')
+  @Get('/english/definition/:word')
   async findDefinition(
     @Param('word') word: string
 
@@ -17,6 +17,14 @@ export class DictionaryController {
       sound: data[0].hwi.prs[0].sound
     }
     return response;
+  }
+
+  @Get('/korean/definition/:word')
+  async findDefinitionOfKoreanWord(
+    @Param('word') word: string
+  ) {
+    const data = await this.dictionaryService.findDefinitionOfKoreanWord(word);
+    return data
   }
 
   // @Post()

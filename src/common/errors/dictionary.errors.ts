@@ -16,15 +16,15 @@ export class WordNotFoundError extends DictionaryApiError {
 }
 
 export class InvalidApiKeyError extends DictionaryApiError {
-  constructor() {
-    super('Invalid Merriam-Webster API key', 401);
+  constructor(dictionary: string) {
+    super(`${dictionary} API key error`, 401);
     this.name = this.constructor.name;
   }
 }
 
 export class RateLimitExceededError extends DictionaryApiError {
-  constructor() {
-    super('Merriam-Webster API rate limit exceeded', 429);
+  constructor(dictionary: string) {
+    super(`${dictionary} API rate limit exceeded`, 429);
     this.name = this.constructor.name;
   }
 }
