@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://method15.vercel.app/" target="blank"><img src="./public//tilingo.png" width="120" alt="Nest Logo" /></a>
+  <a href="https://method15.vercel.app/" target="blank"><img src="./public//tilingo.png" width="120" alt="Logo" /></a>
 </p>
 
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
@@ -7,7 +7,7 @@
 
   <p align="center">A NestJS server-side of <a href="https://method15.vercel.app/" target="_blank">Tilingo</a> for learning languages.</p>
     <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+<!-- <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
 <a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
@@ -17,7 +17,7 @@
   <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
     <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
   <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
+</p> -->
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
@@ -25,6 +25,12 @@
 ## Project documentations
 
 [Postman documentation ->](https://documenter.getpostman.com/view/34477062/2sBXVZouWc)
+
+## Database sheme
+
+<p align="center">
+  <img src="./public//dbScheme.png" alt="DB" />
+</p>
 
 ## Project setup
 
@@ -90,10 +96,4 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 ## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+- Author - [Mirlan Rysbekov](https://www.instagram.com/qu_mirlan/?__pwa=1#)
