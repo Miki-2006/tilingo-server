@@ -5,6 +5,7 @@ import * as bcrypt from 'bcrypt'
 import { CheckingPasswordOfUserDto } from './dto/login.dto';
 import { userResponseDto } from './dto/response-user.dto';
 import { PasswordNotCorrectError, UserNotFoundError, UserAlreadyExistsError } from '../common/errors/users.errors';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -19,7 +20,22 @@ export class UsersService {
   async create(data: { email: string; supabaseId: string, nickName: string }) {
     return this.prisma.users.create({ data });
   }
+  
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    try {
+      const data = await this.prisma.users.update({
+        data: {nickName: updateUserDto.nickName},
+        where: {id: id}
+      })
 
+      if (!data) {
+        throw new Error("Could not edit nickName of user!")
+      }
+      return data;
+    } catch (error) {
+      throw new Error(`Error occured in editing nickName: ${error}`)
+    }
+  }
 
   // async signUpNewUser(createNewUserDto: CreateNewUserDto) {
   //   const existingUser = await this.prisma.users.findUnique({
@@ -86,9 +102,6 @@ export class UsersService {
   // }
 
 
-  // update(id: number, updateUserDto: UpdateUserDto) {
-  //   return `This action updates a #${id} user`;
-  // }
 
   // remove(id: number) {
   //   return `This action removes a #${id} user`;

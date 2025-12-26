@@ -13,4 +13,8 @@ export class CreateNewUserDto {
     @IsNotEmpty()
     @MinLength(6)
     readonly password: string;
+
+    @IsString()
+    @IsNotEmpty()
+    supabaseId: string
 }

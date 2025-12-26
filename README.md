@@ -29,7 +29,7 @@
 ## Database sheme
 
 <p align="center">
-  <img src="./public//dbScheme.png" alt="DB" />
+  <img src="./public//dbSchema.png" alt="DB" />
 </p>
 
 ## Project setup

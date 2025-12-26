@@ -3,8 +3,9 @@ import { UsersService } from './users.service';
 import { CreateNewUserDto } from './dto/create-user.dto';
 import { CheckingPasswordOfUserDto } from './dto/login.dto';
 import { DatabaseUsersExceptionFilter } from '../common/filters/users-exception.filter';
+import { UpdateUserDto } from './dto/update-user.dto';
 
-@Controller('auth')
+@Controller('users')
 @UseFilters(DatabaseUsersExceptionFilter)
 export class UsersController {
   constructor(private readonly usersService: UsersService) { }
@@ -25,6 +26,11 @@ export class UsersController {
     return { user };
   }
 
+  @Patch('/edit/:id')
+  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.update(id, updateUserDto);
+  }
+
   // @Post('/new-user/sign-up')
   // @HttpCode(201)
   // @UsePipes(new ValidationPipe())
@@ -43,10 +49,6 @@ export class UsersController {
   //   return this.usersService.getUserByNickName(nickName);
   // }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-  //   return this.usersService.update(+id, updateUserDto);
-  // }
 
   // @Delete(':id')
   // remove(@Param('id') id: string) {

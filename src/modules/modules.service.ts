@@ -6,6 +6,7 @@ import { CreateModuleDto } from './dto/create-module.dto';
 import { response } from 'express';
 import { ModulesNotFoundError, UserNotFoundError } from '../common/errors/modules.errors';
 import { Prisma } from '@prisma/client';
+import { UpdateModuleDto } from './dto/update-module.dto';
 
 @Injectable()
 export class ModulesService {
@@ -51,16 +52,36 @@ export class ModulesService {
       }
     }
 
-    // findOne(id: number) {
-    //   return `This action returns a #${id} module`;
-    // }
+  }
 
-    // update(id: number, updateModuleDto: UpdateModuleDto) {
-    //   return `This action updates a #${id} module`;
-    // }
+  async update(id: string, updateModuleDto: UpdateModuleDto) {
+    try {
+      const data = await this.prisma.modules.update({
+        data: {name: updateModuleDto.name},
+        where: {id: id}
+      })
 
-    // remove(id: number) {
-    //   return `This action removes a #${id} module`;
-    // }
+      if (!data) {
+        throw new Error("Could not edit name of module!")
+      }
+      return data;
+    } catch (error) {
+      throw new Error(`Error occured in editing module: ${error}`)
+    }
+  }
+
+  async remove(id: string) {
+    try {
+      const data = await this.prisma.modules.delete({
+        where: {id: id}
+      })
+      
+      if (!data) {
+        throw new Error("Could not delete module!")
+      }
+      return data;
+    } catch (error) {
+      throw new Error(`Error occured in deleting module: ${error}`)
+    }
   }
 }

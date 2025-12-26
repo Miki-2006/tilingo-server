@@ -12,9 +12,10 @@ import { BooksModule } from './books/books.module';
 import { ImageGenerationModule } from './image-generation/image-generation.module';
 import { Neo4jModule } from './neo4j/neo4j.module';
 import { MoviesModule } from './movies/movies.module';
+import { SupabaseModule } from './supabase/supabase.service';
 
 @Module({
-  imports: [PrismaModule, RandomWordModule, ConfigModule.forRoot({isGlobal: true}), DictionaryModule, ModulesModule, UsersModule, WordsModule, BooksModule, ImageGenerationModule, Neo4jModule.forRoot(), MoviesModule],
+  imports: [PrismaModule, RandomWordModule, ConfigModule.forRoot({isGlobal: true}), DictionaryModule, ModulesModule, UsersModule, WordsModule, BooksModule, ImageGenerationModule, Neo4jModule.forRoot(), MoviesModule, SupabaseModule],
   controllers: [AppController],
   providers: [AppService],
 })

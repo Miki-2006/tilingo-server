@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DatabaseUsersExceptionFilter } from './common/filters/users-exception.filter';
 import { DictionaryApiExceptionFilter } from './common/filters/dictionary-exception.filter';
+import 'dotenv/config'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

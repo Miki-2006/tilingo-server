@@ -1,15 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFiles } from '@nestjs/common';
 import { BooksService } from './books.service';
-import { CreateBookDto } from './dto/create-book.dto';
-import { UpdateBookDto } from './dto/update-book.dto';
+import { AddBookDto, FilesOfBookDto } from './dto/add-book.dto';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
 
 @Controller('books')
 export class BooksController {
   constructor(private readonly booksService: BooksService) {}
 
-  @Post()
-  create(@Body() createBookDto: CreateBookDto) {
-    return this.booksService.create(createBookDto);
+  @Post('/new')
+  @UseInterceptors(
+    FileFieldsInterceptor([
+      {name: 'file', maxCount: 1},
+      {name: 'cover', maxCount: 1}
+    ])
+  )
+  async addNewBook(@Body() addBookDto: AddBookDto, @UploadedFiles() filesOfBookDto: FilesOfBookDto) {
+    return this.booksService.create(addBookDto, filesOfBookDto);
   }
 
   @Get('/all')
@@ -22,13 +28,4 @@ export class BooksController {
     return this.booksService.getOneById(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
-    return this.booksService.update(+id, updateBookDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.booksService.remove(+id);
-  }
 }

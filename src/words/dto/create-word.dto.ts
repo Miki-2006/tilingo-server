@@ -1,5 +1,4 @@
 import { IsString } from "class-validator";
-import { UUID } from "crypto";
 
 export class CreateWordDto {
     @IsString()
@@ -7,7 +6,7 @@ export class CreateWordDto {
 
     readonly definition: string;
 
-    readonly module_id: UUID;
+    readonly module_id: string;
 
     readonly image: string;
 }

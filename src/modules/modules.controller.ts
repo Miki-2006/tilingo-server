@@ -3,6 +3,7 @@ import { ModulesService } from './modules.service';
 import { UUID } from 'crypto';
 import { CreateModuleDto } from './dto/create-module.dto';
 import { ModulesApiExceptionFilter } from '../common/filters/modules-exception.filter';
+import { UpdateModuleDto } from './dto/update-module.dto';
 
 @Controller('modules')
 @UseFilters(ModulesApiExceptionFilter)
@@ -21,18 +22,20 @@ export class ModulesController {
     return this.modulesService.createNewModuleForUser(createModuleDto);
   }
 
+  @Patch('/edit/:id')
+  update(@Param('id') id: string, @Body() updateModuleDto: UpdateModuleDto) {
+    return this.modulesService.update(id, updateModuleDto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.modulesService.remove(id);
+  }
+
   // @Get(':id')
   // findOne(@Param('id') id: string) {
   //   return this.modulesService.findOne(+id);
   // }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateModuleDto: UpdateModuleDto) {
-  //   return this.modulesService.update(+id, updateModuleDto);
-  // }
 
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.modulesService.remove(+id);
-  // }
 }

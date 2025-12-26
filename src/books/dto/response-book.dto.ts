@@ -3,7 +3,7 @@ export class ResponseBookDto {
     id: string;
     title: string;
     author: string;
-    pages: number;
+    pages: string;
     fileUrl: string;
     createdAt: Date;
     imageUrl: string;

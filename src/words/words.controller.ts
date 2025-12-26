@@ -7,14 +7,14 @@ import { UpdateWordDto } from './dto/update-word.dto';
 export class WordsController {
   constructor(private readonly wordsService: WordsService) {}
 
-  @Post()
+  @Post('/new')
   create(@Body() createWordDto: CreateWordDto) {
     return this.wordsService.create(createWordDto);
   }
 
-  @Get()
-  findAll() {
-    return this.wordsService.findAll();
+  @Get('/:moduleId')
+  findAll(@Param('moduleId') moduleId: string) {
+    return this.wordsService.findAll(moduleId);
   }
 
   // @Get(':id')
