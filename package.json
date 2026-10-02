@@ -1,5 +1,0 @@
-{
-  "dependencies": {
-    "nest-neo4j": "^0.3.1"
-  }
-}
